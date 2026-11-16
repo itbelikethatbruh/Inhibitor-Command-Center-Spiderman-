@@ -1,0 +1,39 @@
+{
+  "name": "inhibitor-command-center-build",
+  "version": "1.0.0",
+  "private": true,
+  "build": {
+    "appId": "local.inhibitor.commandcenter",
+    "productName": "Inhibitor Command Center",
+    "directories": {
+      "app": "app",
+      "output": "dist"
+    },
+    "electronVersion": "33.2.1",
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "InhibitorCommandCenter.exe"
+    }
+  },
+  "devDependencies": {
+    "electron-builder": "^25.1.8"
+  },
+  "license": "AGPL-3.0-only",
+  "author": "Drake"
+}

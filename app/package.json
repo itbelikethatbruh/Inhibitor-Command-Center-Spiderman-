@@ -1,0 +1,9 @@
+{
+  "name": "inhibitor-command-center",
+  "productName": "Inhibitor Command Center",
+  "version": "1.0.0",
+  "main": "electron-main.js",
+  "description": "Animated inhibitor command center",
+  "author": "Drake",
+  "license": "AGPL-3.0-only"
+}

@@ -1,0 +1,244 @@
+<!doctype html>
+<!-- Inhibitor Command Center - Copyright (C) 2026 Drake. SPDX-License-Identifier: AGPL-3.0-only -->
+<html><head><meta charset="utf-8"><title>TERM.SPID // INHIBITOR CONTROL</title>
+<link rel="stylesheet" href="style.css"></head>
+<body>
+<div id="stage">
+  <canvas id="bgcanvas" width="1920" height="1080"></canvas>
+
+  <!-- MENUBAR -->
+  <div id="menubar">
+    <div id="logo"></div>
+    <div class="menu">FILE<div class="dd"><div data-act="restart">RESTART SEQUENCE<span>R</span></div><div data-act="quit">EXIT<span>ESC</span></div></div></div>
+    <div class="menu">EDIT<div class="dd"><div data-act="comp">SHOW COMPILER<span>C</span></div></div></div>
+    <div class="menu">VIEW<div class="dd"><div data-act="ws1">COMMAND CENTER<span>1</span></div><div data-act="ws2">ANALYSIS /RUNNING<span>2</span></div><div data-act="auto">AUTO CYCLE VIEWS<span>A</span></div><div data-act="full">FULLSCREEN<span>F11</span></div></div></div>
+    <div class="menu">TOOLS<div class="dd"><div data-act="fab">FORCE FABRICATION<span>F</span></div><div data-act="crt">TOGGLE SCANLINES<span>S</span></div></div></div>
+    <div class="menu">SYSTEM<div class="dd"><div data-act="wormhole">WORMHOLE<span>W</span></div></div></div>
+    <div class="menu">HELP<div class="dd"><div>1 / 2 SWITCH VIEWS</div><div>DRAG TITLE BARS TO MOVE</div><div>SPACE PAUSE COMPILER</div><div>F11 FULLSCREEN · ESC EXIT</div></div></div>
+    <div id="tray">
+      <svg viewBox="0 0 20 20"><path d="M2 7V2h5M13 2h5v5M18 13v5h-5M7 18H2v-5M7 7h6v6H7z"/></svg>
+      <svg viewBox="0 0 20 20"><path d="M3 8h4l5-4v12l-5-4H3zM15 7c1.5 1.5 1.5 4.5 0 6"/></svg>
+      <svg viewBox="0 0 20 20"><path d="M5 18V2M5 3h10l-2 4 2 4H5"/></svg>
+      <svg viewBox="0 0 20 20"><path d="M3 13a7 7 0 0 1 14-3M17 10l-3-1 1 3M10 6a4 4 0 1 0 4 4"/></svg>
+      <svg viewBox="0 0 20 20"><path d="M10 2a3 3 0 0 1 3 3v5a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zM5 10a5 5 0 0 0 10 0M10 15v3"/></svg>
+      <svg viewBox="0 0 20 20"><path d="M3 14a7 7 0 1 1 14 0M10 14l4-5"/></svg>
+      <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7"/><circle cx="10" cy="10" r="3"/></svg>
+    </div>
+  </div>
+
+
+  <!-- title logo: drop your own app/logo.png here (not included in the repo); hidden if missing -->
+  <div id="title"><img src="logo.png" alt="" onerror="this.parentNode.style.display='none'"></div>
+
+  <!-- WORKSPACE 1 -->
+  <div id="ws1">
+    <div class="win" id="wBack" style="left:110px;top:72px;width:1300px;height:72px;z-index:10">
+      <div class="tbar">TERMINAL 01.-D/OPERT 0657946123.4578/A1<div class="ctl"><span>+</span><span>−</span><span>×</span></div></div>
+      <div class="wbody">
+        <div class="row" style="left:60px">UUD-Crossbeam»<br><span class="tiny">Nuss=150x</span></div>
+        <div class="row" style="left:330px">ENT+3 60vv</div>
+        <div style="position:absolute;left:640px;top:0;width:2px;height:16px;background:#6fb8e6"></div>
+        <div style="position:absolute;left:640px;top:16px;right:20px;height:1px;background:#2a6a9a"></div>
+        <div class="row" style="left:700px">SID A+SE2</div>
+      </div>
+    </div>
+
+    <div class="win" id="wDna" style="left:1268px;top:150px;width:640px;height:560px;z-index:11">
+      <div class="tbar">TERMINAL 02.-SEQ/HELIX 0657946123.9921/V4<div class="ctl"><span>+</span><span>−</span><span>×</span></div></div>
+      <div class="wbody"><canvas id="dnaCv"></canvas><div id="dnaTop"></div><div id="barPanel"></div></div>
+    </div>
+
+    <div class="win" id="wHorm" style="left:66px;top:132px;width:1236px;height:900px;z-index:12">
+      <div class="tbar">TERMINAL 01.-D/HUM 0657946123.4464/SEED-LR<div class="ctl"><span>+</span><span>−</span><span>×</span></div></div>
+      <div class="wbody">
+        <div id="hHead"><div class="rng">98 PG/MG &nbsp;-&nbsp; 388 PG/MG</div><div class="ttl">HORMONE LEVELS</div><div class="rng" style="color:#4d93c4">270 NG/DL &nbsp;-&nbsp; 1070 NG/DL</div></div>
+        <div id="hInner">
+          <div class="ticks" id="ticksL"></div>
+          <div class="meter hum" id="mHum" style="left:150px"></div>
+          <div class="mlabel" style="left:128px;color:#8fd6ff;text-shadow:0 0 10px rgba(120,200,255,.5)">HUMAN</div>
+          <div class="dtxt" style="left:330px;top:36px">// <b>PRIMARY DNA</b>
+     SPC: HUMAN
+     SYSTEM XY
+     DIPLOID NUMBER: 23
+     SHAPE: METACENTRIC
+             SUBMETACENTRIC
+             ACROCENTRIC
+ <span style="color:#8fd6ff">⁄</span>
+
+
+ // <b>SECONDARY DNA</b>
+
+     SPC: ARACHNID
+     SYSTEM X0/XXO
+     DIPLOID NUMBER: 26
+     SHAPE: ACROCENTRIC
+             TELOCENTRIC
+ <span style="color:#8fd6ff">⁄</span></div>
+          <canvas id="humanCv"></canvas>
+          <div class="dtxt" style="left:740px;top:36px"><b>DETECTION DATA</b>
+  SCAN: 001-H102 0704
+  DOB: 04/10/26</div>
+          <div class="meter ara" id="mAra" style="left:880px"></div>
+          <div class="mlabel" style="left:858px;color:#ff5a3c;text-shadow:0 0 12px rgba(255,80,50,.7)">ARACHNID</div>
+          <div style="position:absolute;right:20px;top:20px;width:20px;height:9px;background:#5aa9dc;opacity:.6"></div>
+        </div>
+        <div class="sbar">SC:APP+PATCH.PYTH.EXE</div>
+      </div>
+    </div>
+
+    <div class="win" id="wInsp" style="left:1150px;top:424px;width:604px;height:606px;z-index:14">
+      <div class="tbar">INSPECTOR.MAG./X25<div class="ctl" style="background:#5aaedf"><span>+</span><span>−</span><span>×</span></div></div>
+      <div class="wbody">
+        <div id="tools"><div class="t1">T1</div>
+          <div class="tb" style="top:18px"><svg viewBox="0 0 30 30"><rect x="4" y="9" width="22" height="12" rx="6"/><circle cx="11" cy="15" r="3" fill="#bfe8ff"/></svg></div>
+          <div class="tb" style="top:86px;background:#173f68"><svg viewBox="0 0 30 30" style="fill:#bfe8ff;stroke:none"><g id="dots"></g></svg></div>
+          <div class="tb" style="top:154px"><svg viewBox="0 0 30 30"><circle cx="15" cy="15" r="9"/><circle cx="15" cy="15" r="3"/><path d="M15 2v6M15 22v6M2 15h6M22 15h6"/></svg></div>
+        </div>
+        <svg id="pcb" viewBox="0 0 420 560"></svg>
+        <svg id="globe" viewBox="0 0 28 28"><circle cx="14" cy="14" r="12" fill="#8fd6ff"/><path d="M2 14h24M14 2c-6 6-6 18 0 24M14 2c6 6 6 18 0 24M4 8h20M4 20h20" stroke="#0a1628" stroke-width="1.5" fill="none"/></svg>
+        <div class="corner" style="left:440px;top:18px;border-left:none;border-bottom:none"></div>
+        <div class="corner" style="left:14px;top:566px;border-right:none;border-top:none"></div>
+        <div class="corner" style="left:440px;top:566px;border-left:none;border-top:none"></div>
+        <div id="inspName"><div class="n1">INHIBITOR</div><div class="n2">PROTOTYPE 2.1</div><div class="n3">MOD.2.0-UPD0.1</div></div>
+        <div id="loadLbl">LOADING</div>
+        <div id="vbar"><div></div></div>
+        <div id="stTxt">DOWNLOADING FRAMEWARE_</div>
+        <div id="hbar" class="hidden"><div></div></div>
+      </div>
+    </div>
+
+    <div class="win" id="wComp" style="left:400px;top:628px;width:620px;height:392px;z-index:15">
+      <div class="tbar">TERMINAL 03.INS<div class="ctl"><span>+</span><span>−</span><span id="compX">×</span></div></div>
+      <div class="wbody">
+        <div id="compT">COMPILING FIRMWARE</div>
+        <div class="btn" id="bPause" style="left:168px">PAUSE</div>
+        <div class="btn" id="bEnd" style="left:316px">END</div>
+        <div id="hex"></div>
+        <div id="exec">EXECUTING/<b>INSTR</b></div>
+      </div>
+    </div>
+
+    <!-- FABRICATION (phase 3) -->
+    <div class="win hidden" id="wFab" style="left:262px;top:300px;width:1450px;height:760px;z-index:16">
+      <div class="tbar">TERMINAL 01.-D/OPERT 0657946123.4578/A1<div class="ctl"><span>+</span><span>−</span><span>×</span></div></div>
+      <div class="wbody">
+        <div class="bx" style="left:10px;top:14px;width:450px;height:560px;border-color:#2c78b8"></div>
+        <div class="ft" style="left:52px;top:20px;font-size:10px;line-height:12px;color:#5aa9dc">UUD-Crossbeam»
+  Nuss=150x</div>
+        <div class="ft" style="left:280px;top:20px;font-size:10px;color:#5aa9dc">ENT+3 60vv</div>
+        <div class="bx" style="left:40px;top:120px;width:410px;height:450px"></div>
+        <div class="lab" style="left:220px;top:110px">8/42</div>
+        <div class="bx" style="left:70px;top:200px;width:350px;height:340px"></div>
+        <div class="lab" style="left:300px;top:190px">8/42</div>
+        <div class="ft" style="left:40px;top:150px;font-size:12px;color:#5aa9dc;transform:rotate(-90deg);transform-origin:left top;top:330px">MC/S 150 ON</div>
+        <svg id="explode" viewBox="0 0 350 340" style="position:absolute;left:70px;top:200px;width:350px;height:340px"></svg>
+        <div class="bx" style="left:470px;top:14px;width:640px;height:560px;border-color:transparent"></div>
+        <svg id="pcbBig" viewBox="0 0 420 560" style="position:absolute;left:520px;top:16px;width:470px;height:627px"></svg>
+        <div id="tools2" style="position:absolute;left:470px;top:16px;width:110px;height:330px;border:2px solid #4aa6e6;border-top:none"></div>
+        <div class="bx" style="left:1110px;top:14px;width:300px;height:560px"></div>
+        <div style="position:absolute;left:1170px;top:60px;width:160px;height:2px;background:#8fd6ff"></div>
+        <div style="position:absolute;left:1170px;top:52px;width:2px;height:18px;background:#8fd6ff"></div>
+        <div style="position:absolute;left:1330px;top:52px;width:2px;height:18px;background:#8fd6ff"></div>
+        <div class="lab" style="left:1290px;top:50px">01</div>
+        <div class="lab" style="left:1236px;top:70px">01-UP CORRECTION</div>
+        <div class="bx" style="left:1120px;top:120px;width:280px;height:460px"></div>
+        <div class="lab" style="left:1190px;top:110px">8/42</div>
+        <div class="bx" style="left:1124px;top:170px;width:90px;height:400px"></div>
+        <div class="ft" style="left:1128px;top:180px;font-size:8px;line-height:16px;color:#5aa9dc">  SUB.MODEL<br>+ ROOT.MODULES
+
+.
+.REIF
+.MODEL+:
+.FS+MODEL.
+
+.MODEL+:+
+
+.RANDOM.BAND
+.HEURISTIC:D</div>
+        <div style="position:absolute;left:1300px;top:150px;font-family:Plex;font-weight:600;font-size:34px;color:#4aa6e6">M</div>
+        <div style="position:absolute;left:1250px;top:220px;width:30px;height:4px;background:#4aa6e6;box-shadow:0 10px 0 #4aa6e6,0 22px 0 #4aa6e6"></div>
+        <div id="mgauge" style="position:absolute;left:1250px;top:270px;width:30px;height:290px;background:#14456f;border-top:4px solid #4aa6e6"><div style="position:absolute;left:0;right:0;bottom:0;height:40%;background:#2a78b6"></div></div>
+        <div id="fabName" style="position:absolute;left:1124px;top:440px;font-family:Plex;font-weight:700;line-height:34px;font-size:28px">
+          <div style="color:#d5f1ff">INHIBITOR</div><div style="color:#7fc4ef">PROTOTYPE 2.1</div><div style="font-size:15px;color:#bfe7ff;letter-spacing:1px">MOD.2.0-UPD0.1</div></div>
+        <div class="lab" style="left:1240px;top:592px">8/42</div>
+        <div style="position:absolute;left:1180px;top:618px;width:22px;height:10px;background:#cfefff"></div>
+        <div id="fabTxt">FABRICATION PROGRESS-</div>
+        <div class="ft" style="left:1020px;top:618px;font-size:11px;color:#3f8fc8">☐ FNCT/-BUILD</div>
+        <div id="fbar"><div></div></div>
+        <div class="sbar">SC:APP+PATCH.PYTH.EXE</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORKSPACE 2 : ANALYSIS -->
+  <div id="ws2" class="hidden">
+    <div class="drive" style="top:120px"><svg viewBox="0 0 52 60"><rect x="2" y="2" width="48" height="56" rx="4" fill="#cfe9f7" stroke="#2c6a9a"/><circle cx="26" cy="26" r="13" fill="#2b3f52"/><circle cx="26" cy="26" r="3" fill="#cfe9f7"/><rect x="6" y="46" width="40" height="8" fill="#1d2d3c"/></svg><br>DISK.01</div>
+    <div class="drive" style="top:270px"><svg viewBox="0 0 52 60"><rect x="2" y="2" width="48" height="56" rx="4" fill="#cfe9f7" stroke="#2c6a9a"/><circle cx="26" cy="26" r="13" fill="#2b3f52"/><circle cx="26" cy="26" r="3" fill="#cfe9f7"/><rect x="6" y="46" width="40" height="8" fill="#1d2d3c"/></svg><br>DISK.02</div>
+    <div class="drive" style="top:420px"><svg viewBox="0 0 52 60"><rect x="2" y="2" width="48" height="56" rx="4" fill="#cfe9f7" stroke="#2c6a9a"/><circle cx="26" cy="26" r="13" fill="#2b3f52"/><circle cx="26" cy="26" r="3" fill="#cfe9f7"/><rect x="6" y="46" width="40" height="8" fill="#1d2d3c"/></svg><br>DISK.03</div>
+    <div class="drive" style="top:570px"><svg viewBox="0 0 52 60"><rect x="2" y="2" width="48" height="56" rx="4" fill="#cfe9f7" stroke="#2c6a9a"/><circle cx="26" cy="26" r="13" fill="#2b3f52"/><circle cx="26" cy="26" r="3" fill="#cfe9f7"/><rect x="6" y="46" width="40" height="8" fill="#1d2d3c"/></svg><br>DISK.04</div>
+
+    <div class="win" id="wAna" style="left:130px;top:58px;width:1760px;height:972px;z-index:20">
+      <div class="tbar">TERMINAL 01.-D/OPERT 0657946123.4578/A1<div class="ctl"><span>+</span><span>−</span><span>×</span></div></div>
+      <div class="wbody">
+        <div id="aLeft">
+          <div class="ft" style="left:12px;top:-12px;background:#081a33;padding:0 4px;font-size:11px">TERMINAL 01.-BLD/<span style="color:#2f6f9f">CODE</span>  <span style="color:#8fd6ff">●●</span></div>
+          <div class="ft" style="left:20px;top:22px;font-size:10px;line-height:13px;color:#8fd6ff">INHIBITOR
+2.2-/MR
+2.3-/MR</div>
+          <div style="position:absolute;left:238px;top:40px;width:20px;height:10px;background:#5aa9dc"></div>
+          <div class="ft" style="left:20px;top:78px;font-size:21px;line-height:24px;color:#8fd6ff">ANALYSIS
+/RUNNING</div>
+          <div class="ft" style="left:20px;top:134px;font-size:8px;color:#2f6f9f">TERMINAL 01.-BLD/CODE  |</div>
+          <div class="ft" id="tree" style="left:16px;top:150px"></div>
+          <div class="ft" style="left:20px;top:660px;font-size:10px">01.-BLD/CODE <span style="color:#8fd6ff">●●</span></div>
+          <div style="position:absolute;left:150px;top:670px;right:0;height:2px;background:#3b94d6"></div>
+          <canvas id="wireCv"></canvas>
+          <div class="ft" style="left:20px;top:878px;font-size:11px">SIMULATION 4.0</div>
+        </div>
+        <div id="aRight">
+          <div class="atab" style="left:0">&gt;TERM/A -BLD <span style="color:#2a6a9a">CDE</span><i>×</i></div>
+          <div class="atab" style="left:250px">&gt;TERM/A -BLD <span style="color:#2a6a9a">CDE</span><i>×</i></div>
+          <div class="atab" style="left:500px;opacity:.6">&gt;TERM/A -BLD <span style="color:#2a6a9a">CDE</span><i>×</i></div>
+          <div class="atab" style="left:750px;width:120px;opacity:.6">&gt;TERM/A</div>
+          <div id="aMain">
+            <div class="ft" style="left:20px;top:-12px;background:#081a33;padding:0 6px;font-size:11px">TERMINAL 01.-BLD/<span style="color:#2f6f9f">CODE</span>   A6/2  <span style="color:#8fd6ff">●</span><span style="color:#d070ff">●</span></div>
+            <div style="position:absolute;left:330px;top:-1px;right:0;height:2px;background:#3b94d6"></div>
+            <div class="ft" style="left:480px;top:4px;font-size:10px">ENT+3 60vv</div>
+            <div id="code"></div>
+            <div class="plus" style="left:430px;top:110px"></div>
+            <div class="ft" style="left:640px;top:115px;font-size:14px;color:#6cbcf0" id="v28">&lt;28V/</div>
+            <div class="ft" style="left:780px;top:115px;font-size:14px;color:#6cbcf0" id="v3000">x3000</div>
+            <div style="position:absolute;left:0;right:0;top:240px;height:2px;background:#3b94d6"></div>
+            <canvas id="chromo" style="top:236px;height:480px"></canvas>
+            <canvas id="wave" style="top:712px;height:50px"></canvas>
+            <div style="position:absolute;left:0;right:0;top:768px;height:2px;background:#3b94d6"></div>
+            <div class="plus" style="left:560px;top:778px"></div>
+            <div class="ft" style="left:700px;top:786px;font-size:14px">FNCT/</div>
+            <div class="ft" style="left:860px;top:786px;font-size:14px">-SCAN</div>
+            <div class="ft" style="left:6px;top:830px;font-size:14px;transform:rotate(-90deg);transform-origin:left top;top:850px;line-height:16px">LOC.DRV<br>HDR</div>
+            <div class="ft" style="left:120px;top:790px;font-size:10px;line-height:13px" id="xyz">TERMINAL 01.-DRV/CODE  |  DISPLAY.SAMPLE.SIZE.1:1</div>
+          </div>
+        </div>
+        <div class="sbar">SC:APP+PATCH.PYTH.EXE</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TASKBAR -->
+  <div id="taskbar">
+    <div id="tb-left">HDR 07:2:06</div>
+    <div class="tab act" data-ws="1">TERM.SPID..<i>×</i></div>
+    <div class="tab" data-ws="2">TERM.SPID..<i>×</i></div>
+    <div class="tab" data-ws="c">TERM.SPID..<i>×</i></div>
+    <div class="tab" data-ws="w">WORMHOLE<i>×</i></div>
+    <div id="tbplus">+</div>
+    <div id="vpn"><svg viewBox="0 0 26 18"><path d="M2 16 L9 4 L13 10 L17 6 L24 16" fill="none" stroke="#e6f7ff" stroke-width="2.5" stroke-linejoin="round"/></svg>SecureLink VPN<b></b></div>
+    <div id="cpu">▮ CPU: 83%</div>
+    <div id="temp">TEMP: 42.7°C</div>
+  </div>
+
+  <div id="crt"></div><div id="vig"></div><div id="flick"></div>
+</div>
+<script src="three.min.js"></script>
+<script src="main.js"></script>
+</body></html>
