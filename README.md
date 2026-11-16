@@ -5,8 +5,20 @@ It runs as a full-screen app or as a Windows screensaver: the main display shows
 command center (hormone levels, firmware compiler, inhibitor prototype inspector,
 fabrication progress), and every extra monitor shows the analysis terminal with a voxel DNA helix.
 
-Unofficial fan project, inspired by the Spider-Man films. Not affiliated with or endorsed
-by Marvel, Disney or Sony. See [Trademarks](THIRD_PARTY_NOTICES.md#trademarks).
+Unofficial fan project. Not affiliated with or endorsed by Marvel, Disney or Sony.
+See [Trademarks](THIRD_PARTY_NOTICES.md#trademarks).
+
+## Why I made this
+
+In *Spider-Man: Brand New Day*, at about **48:40**, there's a scene where Peter Parker's
+computer screen shows this inhibitor command center: hormone levels, a firmware compiler,
+a DNA helix and the inhibitor prototype being fabricated. I loved how it looked, so I
+built my own working version of it from scratch: every window, animation and readout here
+is my own recreation, written in HTML, CSS, JavaScript and three.js, and it runs on my
+monitors as an app or a screensaver.
+
+This is a fan recreation. The film, its characters and its branding belong to Marvel
+and their respective owners; no footage, logos or assets from the movie are included here.
 
 ![Command center](docs/screenshots/01-command-center-main.jpg)
 
